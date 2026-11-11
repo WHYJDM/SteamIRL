@@ -11,19 +11,19 @@ erDiagram
     AspNetUsers ||--o{ AspNetUserRoles : references
     AspNetUsers ||--o{ AspNetUserTokens : references
     AspNetUsers ||--o{ content_reports : references
-    locations ||--o{ content_reports : references
-    sessions ||--o{ content_reports : references
+    locations |o--o{ content_reports : references
+    sessions |o--o{ content_reports : references
     AspNetUsers ||--o{ idempotency_requests : references
     activities ||--o{ location_activities : references
     locations ||--o{ location_activities : references
     AspNetUsers ||--o{ location_submissions : references
     locations ||--o{ location_submissions : references
     AspNetUsers ||--o{ moderation_decisions : references
-    content_reports ||--o{ moderation_decisions : references
-    location_submissions ||--o{ moderation_decisions : references
+    content_reports |o--o| moderation_decisions : references
+    location_submissions |o--o| moderation_decisions : references
     AspNetUsers ||--o{ participations : references
     sessions ||--o{ participations : references
-    AspNetUsers ||--o{ public_profiles : references
+    AspNetUsers ||--o| public_profiles : references
     AspNetUsers ||--o{ sessions : references
     location_activities ||--o{ sessions : references
     activities ||--o{ submission_activities : references

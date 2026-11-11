@@ -53,7 +53,11 @@ foreach ($table in $tables) {
 $diagram=New-Object 'System.Collections.Generic.List[string]'
 $diagram.Add('# Логическая схема реализованной БД'); $diagram.Add(''); $diagram.Add('Схема связей реализованных таблиц после шести миграций. PK/FK и ограничения перечислены в [словаре данных](data-dictionary.md). Параллельные FK к одной таблице обозначают разные роли аккаунта. Планируемые функции описаны отдельно в [соответствии BA](ba-traceability.md).'); $diagram.Add(''); $diagram.Add('```mermaid'); $diagram.Add('erDiagram');
 foreach ($table in $tables | Where-Object {$_.kind -eq 'r' -and $_.table_name -ne '__EFMigrationsHistory'}) {
- foreach ($fk in @($table.constraints | Where-Object {$_.type -eq 'f'})) { $diagram.Add("    $($fk.target) ||--o{ $($table.table_name) : references") }
+ foreach ($fk in @($table.constraints | Where-Object {$_.type -eq 'f'})) {
+  $parentCardinality=if ($fk.optional) {'|o'} else {'||'}
+  $childCardinality=if ($fk.unique) {'o|'} else {'o{'}
+  $diagram.Add("    $($fk.target) $parentCardinality--$childCardinality $($table.table_name) : references")
+ }
 }
 $diagram.Add('```'); $diagram.Add(''); $diagram.Add('Представления reporting не являются дополнительными хранилищами: account_directory читает AspNetUsers/public_profiles с полной маской email; location_catalogue читает locations/location_activities/activities; session_overview добавляет sessions/participations и вычисляет статус. Журнал __EFMigrationsHistory технический.');
 [IO.File]::WriteAllLines((Join-Path ([IO.Path]::GetFullPath($OutputDirectory)) 'logical-schema.md'),$diagram,[Text.UTF8Encoding]::new($false))
