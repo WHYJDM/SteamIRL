@@ -7,7 +7,7 @@ foreach ($file in $files) {
     if ($file -match '(^|/)(\.local|pgdata|node_modules|bin|obj|auth-keys)/|(^|/)(\.env|secrets\.json)$|\.(pem|key|pfx|p12|pgpass)$' -or ($file -match '(^|/)\.env\.' -and $file -ne '.env.example')) {
         $findings.Add("Forbidden tracked file: $file"); continue
     }
-    if ($file -match '\.(docx|png|jpg|jpeg|gif|ico|woff2?)$') { continue }
+    if ($file -match '\.(docx|pdf|png|jpg|jpeg|gif|ico|woff2?)$') { continue }
     $body = [IO.File]::ReadAllText((Join-Path (Get-Location) $file))
     if ($body -match '-----BEGIN (?:RSA |EC |OPENSSH |ENCRYPTED )?PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,}|AKIA[0-9A-Z]{16}') { $findings.Add("Possible credential: $file") }
     foreach ($match in [regex]::Matches($body, ('(?i)Pass' + 'word=([^;\s"''`]+)'))) {

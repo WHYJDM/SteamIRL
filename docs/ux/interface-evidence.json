@@ -1,0 +1,309 @@
+{
+  "date": "2026-11-11",
+  "browser": "Microsoft Edge / Playwright",
+  "audits": [
+    {
+      "key": "S01 список площадок",
+      "screens": [
+        {
+          "width": 360,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 46.609375,
+              "height": 15
+            },
+            {
+              "label": "Мои игры",
+              "width": 52.3125,
+              "height": 15
+            },
+            {
+              "label": "Мои обращения",
+              "width": 86,
+              "height": 15
+            },
+            {
+              "label": "Повторить загрузку карты",
+              "width": 156.0625,
+              "height": 22.390625
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 46.609375,
+              "height": 15
+            },
+            {
+              "label": "Мои игры",
+              "width": 52.3125,
+              "height": 15
+            },
+            {
+              "label": "Мои обращения",
+              "width": 86,
+              "height": 15
+            },
+            {
+              "label": "Повторить загрузку карты",
+              "width": 156.0625,
+              "height": 22.390625
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 50.84375,
+              "height": 16
+            },
+            {
+              "label": "Мои игры",
+              "width": 57.0625,
+              "height": 16
+            },
+            {
+              "label": "Мои обращения",
+              "width": 93.828125,
+              "height": 16
+            },
+            {
+              "label": "Повторить загрузку карты",
+              "width": 156.0625,
+              "height": 22.390625
+            }
+          ]
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 50.84375,
+              "height": 16
+            },
+            {
+              "label": "Мои игры",
+              "width": 57.0625,
+              "height": 16
+            },
+            {
+              "label": "Мои обращения",
+              "width": 93.828125,
+              "height": 16
+            },
+            {
+              "label": "Повторить загрузку карты",
+              "width": 156.0625,
+              "height": 22.390625
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "S02 форма игры",
+      "screens": [
+        {
+          "width": 360,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 46.609375,
+              "height": 15
+            },
+            {
+              "label": "Мои игры",
+              "width": 52.3125,
+              "height": 15
+            },
+            {
+              "label": "Мои обращения",
+              "width": 86,
+              "height": 15
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 46.609375,
+              "height": 15
+            },
+            {
+              "label": "Мои игры",
+              "width": 52.3125,
+              "height": 15
+            },
+            {
+              "label": "Мои обращения",
+              "width": 86,
+              "height": 15
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 50.84375,
+              "height": 16
+            },
+            {
+              "label": "Мои игры",
+              "width": 57.0625,
+              "height": 16
+            },
+            {
+              "label": "Мои обращения",
+              "width": 93.828125,
+              "height": 16
+            }
+          ]
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 50.84375,
+              "height": 16
+            },
+            {
+              "label": "Мои игры",
+              "width": 57.0625,
+              "height": 16
+            },
+            {
+              "label": "Мои обращения",
+              "width": 93.828125,
+              "height": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "S03 карточка игры",
+      "screens": [
+        {
+          "width": 360,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 46.609375,
+              "height": 15
+            },
+            {
+              "label": "Мои игры",
+              "width": 52.3125,
+              "height": 15
+            },
+            {
+              "label": "Мои обращения",
+              "width": 86,
+              "height": 15
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 46.609375,
+              "height": 15
+            },
+            {
+              "label": "Мои игры",
+              "width": 52.3125,
+              "height": 15
+            },
+            {
+              "label": "Мои обращения",
+              "width": 86,
+              "height": 15
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 50.84375,
+              "height": 16
+            },
+            {
+              "label": "Мои игры",
+              "width": 57.0625,
+              "height": 16
+            },
+            {
+              "label": "Мои обращения",
+              "width": 93.828125,
+              "height": 16
+            }
+          ]
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "unlabelled": [],
+          "smallTargets": [
+            {
+              "label": "Все игры",
+              "width": 50.84375,
+              "height": 16
+            },
+            {
+              "label": "Мои игры",
+              "width": 57.0625,
+              "height": 16
+            },
+            {
+              "label": "Мои обращения",
+              "width": 93.828125,
+              "height": 16
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "lastSlotError": "Последнее место уже занято. Обнови карточку игры.",
+  "errors": [],
+  "serverErrors": [],
+  "notes": "Synthetic labelled fixtures; OSM blocked; not human usability testing."
+}

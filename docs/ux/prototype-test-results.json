@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-11",
+  "checks": [
+    "capacity inline error, input association and focus",
+    "J1 success after network retry preserves input",
+    "cancel confirmation can be declined or accepted",
+    "duplicate invitation opens existing record",
+    "Planned validation, DST gap and correct displayed Vilnius start",
+    "J2 login return, explicit confirmation, join and leave",
+    "Full produces no participation and filtered recovery",
+    "cancelled, expired and uncertain joining do not claim success",
+    "J3 validation, preserved draft and Pending without publication",
+    "moderation reason and stale version allow explained rejection only",
+    "approved correction changes the displayed public address",
+    "six prototype screens reflow at 360/390/768/1440",
+    "keyboard focus and skip-to-content",
+    "24-page PDF has Unicode text maps, outline and structure tree"
+  ],
+  "passed": 14,
+  "jsErrors": [],
+  "httpRequests": [],
+  "limitations": "Automated engineering checks; no human usability outcomes or full WCAG/PDF-UA audit."
+}

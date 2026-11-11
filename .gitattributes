@@ -8,3 +8,4 @@
 *.yml text eol=lf
 *.docx binary
 *.bundle binary
+*.pdf binary

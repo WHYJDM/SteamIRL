@@ -1,4 +1,4 @@
-param([string]$MetadataPath='.local/review-git', [string]$BundlePath='SteamIRL-review.bundle')
+param([string]$MetadataPath='.local/review-git', [string]$BundlePath='SteamIRL-review.bundle', [string]$Message='Prepare local review artifacts aligned with BA')
 $ErrorActionPreference='Stop'
 $savedDir=$env:GIT_DIR; $savedTree=$env:GIT_WORK_TREE
 try {
@@ -11,7 +11,7 @@ try {
     & (Join-Path (Get-Location) 'scripts/Check-Repository.ps1')
     git diff --cached --quiet
     if ($LASTEXITCODE -eq 1) {
-        git commit -m 'Prepare local database assessment aligned with BA'
+        git commit -m $Message
         if ($LASTEXITCODE -ne 0) { throw 'Local commit failed.' }
     } elseif ($LASTEXITCODE -ne 0) { throw 'Cannot inspect staged changes.' }
     git bundle create ([IO.Path]::GetFullPath($BundlePath)) --all
