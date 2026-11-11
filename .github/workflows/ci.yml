@@ -1,0 +1,87 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check tracked files for credentials and local data
+        shell: pwsh
+        run: ./scripts/Check-Repository.ps1
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Start isolated test database with an ephemeral password
+        shell: bash
+        run: |
+          export POSTGRES_PASSWORD="$(openssl rand -hex 32)"
+          echo "::add-mask::$POSTGRES_PASSWORD"
+          echo "STEAMIRL_TEST_DATABASE=Host=localhost;Port=5432;Database=steamirl_test;Username=steamirl;Password=$POSTGRES_PASSWORD" >> "$GITHUB_ENV"
+          docker run -d --name steamirl-test-postgres -p 127.0.0.1:5432:5432 -e POSTGRES_PASSWORD -e POSTGRES_USER=steamirl -e POSTGRES_DB=steamirl_test postgres:17-alpine
+          for attempt in $(seq 1 30); do
+            if docker exec steamirl-test-postgres pg_isready -U steamirl -d steamirl_test; then exit 0; fi
+            sleep 2
+          done
+          exit 1
+      - run: dotnet restore SteamIRL.sln
+      - run: dotnet build SteamIRL.sln -c Release --no-restore
+      - run: dotnet test SteamIRL.sln -c Release --no-build --no-restore --logger trx --results-directory TestResults
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results
+          path: TestResults
+      - name: Stop isolated test database
+        if: always()
+        run: docker rm -f steamirl-test-postgres
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/SteamIRL.Web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: src/SteamIRL.Web/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: node --test ../../tests/SteamIRL.Web.Tests/map-math.test.mjs ../../tests/SteamIRL.Web.Tests/session-time.test.mjs
+  containers:
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate ephemeral container credentials
+        shell: bash
+        run: |
+          for name in POSTGRES_PASSWORD MIGRATOR_PASSWORD APP_DATABASE_PASSWORD READER_PASSWORD; do
+            value="$(openssl rand -hex 32)"
+            echo "::add-mask::$value"
+            echo "$name=$value" >> "$GITHUB_ENV"
+          done
+      - run: docker compose config --quiet
+      - run: docker compose up --build --wait --wait-timeout 180
+      - name: Check catalogue and access through the web proxy
+        run: |
+          curl --fail --retry 5 --retry-all-errors http://localhost:8088/health/ready
+          curl --fail http://localhost:8088/api/activities > activities.json
+          node -e "const a=require('./activities.json');if(a.length!==4||!a.some(x=>x.slug==='volleyball'))process.exit(1)"
+          curl --fail http://localhost:8088/api/locations > locations.json
+          node -e "const p=require('./locations.json');if(p.items.length!==2||p.items.some(x=>!x.activities.length))process.exit(1)"
+          curl --fail http://localhost:8088/api/sessions > sessions.json
+          node -e "const p=require('./sessions.json');if(!Array.isArray(p.items)||p.items.length!==0)process.exit(1)"
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8088/api/moderation/submissions)" = "401"
+          docker compose exec -T postgres psql -U steamirl_admin -d steamirl -v ON_ERROR_STOP=1 -Atc "SELECT NOT rolsuper AND NOT rolcreatedb AND NOT rolcreaterole AND NOT rolbypassrls FROM pg_roles WHERE rolname='steamirl_app'" | grep -qx t
+      - name: Container logs
+        if: failure()
+        run: docker compose logs --no-color
+      - name: Stop test environment
+        if: always()
+        run: docker compose down --volumes

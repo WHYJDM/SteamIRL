@@ -1,0 +1,35 @@
+.header-right { display: flex; align-items: center; gap: 28px; }
+.account-nav { display: flex; align-items: center; gap: 18px; font-size: 12px; font-weight: 600; }
+.account-link { background: #e6eddc; padding: 11px 15px; border-radius: 7px; }
+.account-nav a:hover, .form-switch a:hover, .public-profile-link:hover { text-decoration: underline; }
+.account-loading { font-size: 12px; color: #536358; }
+.text-button { font-size: 12px; cursor: pointer; background: none; border: 0; text-decoration: underline; color: #193e2c; }
+.account-panel { max-width: 490px; margin: 54px auto 72px; padding: 34px; border: 1px solid #d8dfd1; background: #fffef9; border-radius: 16px; overflow-wrap: anywhere; }
+.account-panel h1 { font-size: 34px; letter-spacing: -1.1px; line-height: 1.25; margin-bottom: 16px; }
+.account-panel .eyebrow { margin-top: 28px; }
+.back-link { font-size: 12px; color: #48614d; }
+.back-link:hover { text-decoration: underline; }
+.form-intro { color: #536358; font-size: 14px; line-height: 1.8; margin: 0 0 26px; }
+fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.form-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.form-field label { font-size: 13px; font-weight: 600; }
+.form-field input { font: inherit; font-size: 15px; padding: 13px; border: 1px solid #9da997; background: #fff; border-radius: 7px; color: #172e24; width: 100%; min-width: 0; }
+.form-field input[aria-invalid='true'] { border-color: #a03f30; }
+.field-hint { color: #536358; font-size: 11px; line-height: 1.65; }
+.field-error { color: #973427; font-size: 12px; line-height: 1.65; }
+.submit-button { width: 100%; background: #193e2c; color: #fff; border: 0; border-radius: 8px; padding: 15px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.submit-button:hover { background: #2b5339; }
+button:disabled { opacity: .65; cursor: wait; }
+.form-error { background: #f9e9e3; color: #853122; padding: 13px; border-radius: 7px; font-size: 13px; line-height: 1.7; }
+.form-success { background: #e8f0df; color: #244d2c; padding: 13px; border-radius: 7px; font-size: 13px; }
+.form-switch { font-size: 13px; text-align: center; margin: 25px 0 0; color: #536358; line-height: 1.8; }
+.form-switch a { color: #193e2c; font-weight: 700; margin-left: 6px; }
+.private-email { background: #edf0e5; padding: 16px; border-radius: 8px; margin: 22px 0; display: flex; flex-direction: column; gap: 8px; }
+.private-email span { font-size: 11px; color: #536358; }
+.private-email strong { font-size: 14px; }
+.public-profile-link { display: block; font-size: 13px; margin: 22px 0; font-weight: 600; }
+.logout-button { background: transparent; color: #853122; border: 1px solid #c99583; padding: 11px 15px; border-radius: 7px; font-size: 13px; cursor: pointer; }
+.profile-avatar { display: grid; place-items: center; background: #e1eecb; border-radius: 50%; width: 70px; height: 70px; font-size: 29px; font-weight: 700; margin: 25px 0; }
+.public-name { overflow-wrap: anywhere; }
+@media (max-width: 900px) { .header-right { gap: 14px; } .header-right .city { display: none; } }
+@media (max-width: 600px) { .account-nav { gap: 10px; font-size: 11px; } .account-link { padding: 9px 10px; } .account-panel { margin: 30px auto 42px; padding: 24px 18px; } .account-panel h1 { font-size: 29px; } }

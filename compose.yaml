@@ -1,0 +1,88 @@
+name: steamirl
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-steamirl}
+      POSTGRES_USER: ${POSTGRES_USER:-steamirl_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Copy .env.example to .env and set POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  bootstrap:
+    image: steamirl-api:local
+    build:
+      context: .
+      dockerfile: src/SteamIRL.Api/Dockerfile
+    command: ["--bootstrap-database"]
+    environment:
+      ConnectionStrings__Database: Host=postgres;Port=5432;Database=${POSTGRES_DB:-steamirl};Username=${POSTGRES_USER:-steamirl_admin};Password=${POSTGRES_PASSWORD};Timeout=5;Command Timeout=10
+      DatabaseRoles__Prefix: ${DATABASE_ROLE_PREFIX:-steamirl}
+      DatabaseRoles__MigratorPassword: ${MIGRATOR_PASSWORD:?Set MIGRATOR_PASSWORD outside Git}
+      DatabaseRoles__AppPassword: ${APP_DATABASE_PASSWORD:?Set APP_DATABASE_PASSWORD outside Git}
+      DatabaseRoles__ReaderPassword: ${READER_PASSWORD:?Set READER_PASSWORD outside Git}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  migrate:
+    image: steamirl-api:local
+    command: ["--migrate"]
+    environment:
+      ConnectionStrings__Database: Host=postgres;Port=5432;Database=${POSTGRES_DB:-steamirl};Username=${DATABASE_ROLE_PREFIX:-steamirl}_migrator;Password=${MIGRATOR_PASSWORD};Timeout=5;Command Timeout=10
+    depends_on:
+      bootstrap:
+        condition: service_completed_successfully
+
+  grant-access:
+    image: steamirl-api:local
+    command: ["--grant-database-access"]
+    environment:
+      ConnectionStrings__Database: Host=postgres;Port=5432;Database=${POSTGRES_DB:-steamirl};Username=${DATABASE_ROLE_PREFIX:-steamirl}_migrator;Password=${MIGRATOR_PASSWORD};Timeout=5;Command Timeout=10
+      DatabaseRoles__Prefix: ${DATABASE_ROLE_PREFIX:-steamirl}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  api:
+    image: steamirl-api:local
+    build:
+      context: .
+      dockerfile: src/SteamIRL.Api/Dockerfile
+    environment:
+      ConnectionStrings__Database: Host=postgres;Port=5432;Database=${POSTGRES_DB:-steamirl};Username=${DATABASE_ROLE_PREFIX:-steamirl}_app;Password=${APP_DATABASE_PASSWORD};Timeout=5;Command Timeout=10
+      Authentication__AllowInsecureCookies: 'true'
+      DataProtection__KeyPath: /app/keys
+    volumes:
+      - auth-keys:/app/keys
+    depends_on:
+      grant-access:
+        condition: service_completed_successfully
+
+  web:
+    build:
+      context: .
+      dockerfile: src/SteamIRL.Web/Dockerfile
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8088}:8080"
+    depends_on:
+      api:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+volumes:
+  postgres-data:
+  auth-keys:

@@ -1,0 +1,63 @@
+:root { font-family: 'Segoe UI', system-ui, sans-serif; color: #172e24; background: #f7f7f0; font-synthesis: none; text-rendering: optimizeLegibility; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid #73521b; outline-offset: 5px; }
+.app-shell { max-width: 1320px; margin: auto; padding: 0 56px; }
+.skip-link { position: absolute; top: -100px; left: 16px; background: white; padding: 12px; z-index: 2; }
+.skip-link:focus { top: 12px; }
+.header { height: 104px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #d9ded4; }
+.brand { display: flex; align-items: center; font-size: 26px; font-weight: 800; letter-spacing: -1.4px; }
+.brand > span:last-child { color: #52755b; }
+.brand-mark { display: inline-grid; place-items: center; width: 35px; height: 35px; background: #d5f37c; border-radius: 50%; margin-right: 10px; font-size: 28px; }
+.city { font-size: 13px; font-weight: 600; color: #4d6256; }
+.city span { padding-right: 7px; }
+.hero { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 58px; padding: 76px 0 72px; }
+.eyebrow { text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin: 0 0 17px; color: #526b59; }
+h1 { font-size: clamp(36px, 4.5vw, 62px); line-height: 1.12; font-weight: 800; letter-spacing: -2.9px; margin: 0 0 24px; }
+h1 em { font-style: normal; color: #5a774b; }
+.intro { max-width: 410px; color: #536358; font-size: 15px; line-height: 1.85; margin: 0 0 28px; }
+.primary-link { background: #193e2c; color: #fff; display: inline-flex; align-items: center; gap: 24px; padding: 16px 22px; border-radius: 8px; font-size: 13px; font-weight: 700; }
+.primary-link:hover { background: #2b5339; }
+.court { position: relative; aspect-ratio: 1.13; overflow: hidden; border-radius: 18px; background: #315e46; box-shadow: inset 0 0 90px #193d2c60; }
+.court::after { content: ''; width: 180px; height: 180px; border-radius: 50%; position: absolute; background: #cce871; right: -80px; top: -65px; }
+.court-label { position: absolute; top: 25px; left: 25px; color: #e3eddb; font-size: 11px; font-weight: 600; }
+.court-lines { position: absolute; inset: 24% 15% 20%; border: 2px solid #b8ceb2; transform: rotate(-19deg); }
+.court-lines::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; border-top: 2px solid #b8ceb2; }
+.court-lines::after { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 2px solid #b8ceb2; }
+.court-lines span { position: absolute; left: 30%; right: 30%; top: 34%; bottom: 34%; border: 2px solid #b8ceb2; border-radius: 50%; }
+.court-ball { position: absolute; width: 82px; height: 82px; left: 52%; top: 42%; border-radius: 50%; border: 2px solid #e4b555; background: repeating-linear-gradient(35deg, #e8b95e 0 16px, #75582d 17px 19px, #e8b95e 20px 32px); box-shadow: 10px 18px 20px #102e2a60; }
+.court-caption { position: absolute; bottom: 24px; left: 25px; color: #d3e3cc; font-size: 8px; letter-spacing: 2.5px; }
+.activities { scroll-margin-top: 24px; padding: 12px 0 40px; }
+.section-heading { display: flex; justify-content: space-between; align-items: end; margin-bottom: 28px; gap: 20px; }
+.section-heading .eyebrow { margin-bottom: 10px; }
+h2 { font-size: 28px; letter-spacing: -1px; margin: 0; }
+.section-note { font-size: 11px; color: #57675b; padding-bottom: 5px; }
+.activity-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.activity-card { position: relative; text-align: left; border: 1px solid #d8dfd1; border-radius: 12px; background: #fffef9; padding: 24px 20px; color: #172e24; cursor: pointer; transition: border-color .15s, transform .15s; }
+.activity-card:hover { border-color: #55794a; transform: translateY(-3px); }
+.activity-card[aria-pressed='true'] { background: #e9f0db; border-color: #42623b; }
+.sport-symbol { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #e7eedb; font-size: 34px; margin-bottom: 24px; }
+.sport-basketball { color: #8b4c1b; background: #f4e4ce; }
+.sport-football { background: #e3e9e2; }
+.sport-table-tennis { color: #88593e; background: #f0e4dc; }
+.activity-name { display: block; font-size: 16px; font-weight: 800; margin-bottom: 9px; }
+.activity-description { display: block; font-size: 11px; color: #58665b; line-height: 1.8; padding-right: 5px; }
+.card-arrow { position: absolute; right: 20px; top: 25px; font-size: 21px; color: #61735d; }
+.notice, .selection-note { padding: 22px; border: 1px solid #d8dfd1; border-radius: 10px; background: #fffef9; font-size: 14px; line-height: 1.7; }
+.error { border-color: #b98068; }
+.retry { background: #193e2c; color: white; border: 0; border-radius: 6px; padding: 10px 15px; cursor: pointer; }
+.selection-note { margin-top: 20px; }
+.selection-note p { margin: 5px 0 0; }
+.project-note { display: flex; align-items: center; gap: 12px; padding: 17px 20px; background: #edf0e5; border-radius: 8px; font-size: 11px; color: #4d6151; line-height: 1.8; margin: 8px 0 65px; }
+.project-note p { margin: 0; }
+.note-dot { width: 7px; height: 7px; background: #587746; border-radius: 50%; flex-shrink: 0; }
+footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid #d9ded4; padding: 26px 0; font-size: 10px; color: #56685a; }
+.footer-brand { font-weight: 800; font-size: 16px; color: #172e24; letter-spacing: -.5px; }
+@media (min-width: 1500px) { .hero { padding-top: 95px; } }
+@media (max-width: 900px) { .app-shell { padding: 0 28px; } .hero { gap: 30px; padding: 52px 0; } h1 { letter-spacing: -1.8px; } .intro { font-size: 13px; } .activity-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .app-shell { padding: 0 20px; } .header { height: 78px; } .brand { font-size: 23px; } .city { font-size: 10px; } .hero { grid-template-columns: 1fr; padding: 42px 0; gap: 32px; } h1 { font-size: 42px; } .court { aspect-ratio: 1.5; } .intro { max-width: 100%; font-size: 14px; } .section-heading { align-items: start; } .section-note { display: none; } h2 { font-size: 25px; } .activity-grid { gap: 12px; } .activity-card { padding: 18px 14px; } .activity-name { font-size: 14px; } .card-arrow { right: 13px; top: 18px; } .project-note { margin-bottom: 38px; } footer { flex-wrap: wrap; } footer > span:last-child { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .activity-card { transition: none; } }

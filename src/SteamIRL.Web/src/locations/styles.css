@@ -1,0 +1,45 @@
+.locations-page, .location-detail-page { padding: 40px 0 65px; }
+.locations-page > .eyebrow, .location-detail-page > .eyebrow { margin-top: 32px; }
+.locations-page h1, .location-detail-page h1 { font-size: clamp(30px, 4vw, 46px); letter-spacing: -1.5px; overflow-wrap: anywhere; }
+.locations-intro { color: #536358; font-size: 14px; line-height: 1.8; max-width: 680px; }
+.locations-layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.5fr); gap: 28px; margin-top: 35px; align-items: start; }
+.locations-layout h2 { font-size: 20px; letter-spacing: -.5px; margin-bottom: 20px; }
+.location-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 15px; }
+.location-list li { border: 1px solid #d8dfd1; background: #fffef9; border-radius: 11px; overflow: hidden; }
+.location-list-button { width: 100%; border: 0; background: transparent; color: #172e24; text-align: left; display: grid; gap: 10px; padding: 20px; cursor: pointer; overflow-wrap: anywhere; }
+.location-list-button[aria-pressed='true'] { background: #e9f0db; }
+.location-list-button strong { font-size: 16px; }
+.location-list-button span { font-size: 13px; color: #536358; }
+.location-list-button small { font-size: 11px; color: #536358; }
+.location-list-button:focus-visible { outline-offset: -4px; }
+.location-detail-link { display: block; padding: 12px 20px; font-size: 12px; font-weight: 600; border-top: 1px solid #e2e7dc; }
+.location-detail-link:hover, .source-link:hover { text-decoration: underline; }
+.location-map-column, .location-list-block, .map-block { min-width: 0; }
+.map-help { font-size: 11px; line-height: 1.7; color: #536358; margin: 0 0 10px; }
+.location-map { position: relative; height: 420px; background: #e4e9df; border: 1px solid #bcc9b8; border-radius: 12px; overflow: hidden; touch-action: none; cursor: grab; isolation: isolate; }
+.location-map:active { cursor: grabbing; }
+.map-tile { position: absolute; max-width: none; user-select: none; pointer-events: none; }
+.map-offline-label { position: absolute; left: 50%; top: 22%; transform: translateX(-50%); font-size: 12px; text-align: center; color: #536358; pointer-events: none; }
+.map-controls { position: absolute; z-index: 2; top: 12px; left: 12px; display: flex; flex-direction: column; box-shadow: 0 1px 6px #172e2430; border-radius: 6px; overflow: hidden; }
+.map-controls button { background: #fffef9; color: #172e24; border: 0; border-bottom: 1px solid #d8dfd1; min-width: 40px; height: 40px; font-size: 24px; cursor: pointer; }
+.map-controls .map-reset { font-size: 10px; padding: 0 7px; }
+.map-marker { position: absolute; z-index: 1; transform: translate(-50%, -80%); width: 38px; height: 43px; border: 2px solid #fffef9; border-radius: 50% 50% 50% 8px; background: #214e36; color: white; font-size: 19px; cursor: pointer; box-shadow: 0 3px 8px #172e2440; }
+.map-marker[aria-pressed='true'] { background: #d5f37c; color: #172e24; border-color: #214e36; }
+.static-marker { display: grid; place-items: center; cursor: inherit; }
+.map-attribution { position: absolute; right: 0; bottom: 0; z-index: 2; background: #fffef9f0; color: #172e24; font-size: 10px; padding: 4px 7px; cursor: default; }
+.map-attribution a { text-decoration: underline; }
+.map-fallback { background: #eef1e7; padding: 13px; border-radius: 7px; margin-top: 10px; font-size: 12px; line-height: 1.7; display: flex; gap: 12px; flex-wrap: wrap; }
+.selected-location { margin-top: 25px; padding: 25px; border: 1px solid #d8dfd1; border-radius: 12px; background: #fffef9; }
+.selected-location .primary-link { margin-top: 20px; }
+.location-address { font-weight: 600; font-size: 15px; }
+.location-description { color: #536358; font-size: 14px; line-height: 1.85; }
+.activity-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+.activity-tags a { font-size: 11px; border-radius: 20px; padding: 8px 12px; background: #e6eddc; }
+.location-meta { display: grid; grid-template-columns: 1fr; gap: 7px; font-size: 12px; line-height: 1.7; }
+.location-meta dt { color: #536358; }
+.location-meta dd { margin: 0 0 8px; font-weight: 600; }
+.coordinate-note { font-size: 12px; color: #536358; line-height: 1.8; padding: 13px; background: #edf0e5; border-radius: 8px; }
+.source-link { display: inline-block; font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+.location-detail-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 40px; align-items: start; }
+@media (max-width: 900px) { .locations-layout, .location-detail-layout { grid-template-columns: minmax(0, 1fr); } .location-map { height: 360px; } }
+@media (max-width: 600px) { .locations-page, .location-detail-page { padding: 30px 0 40px; } .location-map { height: 330px; } .selected-location { padding: 18px; } .map-attribution { font-size: 9px; } }
