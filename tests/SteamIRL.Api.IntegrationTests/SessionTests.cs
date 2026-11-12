@@ -21,7 +21,7 @@ public sealed class SessionTests(ApiFactory factory) : IClassFixture<ApiFactory>
     {
         builder.UseEnvironment("Testing");
         if (applicationName is not null) builder.ConfigureAppConfiguration((_, configuration) => configuration.AddInMemoryCollection(
-            new Dictionary<string, string?> { ["ConnectionStrings:Database"] = new NpgsqlConnectionStringBuilder(Environment.GetEnvironmentVariable("STEAMIRL_TEST_DATABASE")) { ApplicationName = applicationName }.ConnectionString }));
+            new Dictionary<string, string?> { ["ConnectionStrings:Database"] = new NpgsqlConnectionStringBuilder(factory.ConnectionString) { ApplicationName = applicationName }.ConnectionString }));
     }).CreateClient();
 
     private async Task<HttpClient> Player(string? applicationName = null)
@@ -254,7 +254,7 @@ public sealed class SessionTests(ApiFactory factory) : IClassFixture<ApiFactory>
     {
         var applicationName = "steamirl-wait-" + Guid.NewGuid().ToString("N");
         using var owner = await Player(); using var player = await Player(applicationName); var game = await Create(owner);
-        await using var connection = new NpgsqlConnection(Environment.GetEnvironmentVariable("STEAMIRL_TEST_DATABASE"));
+        await using var connection = new NpgsqlConnection(factory.ConnectionString);
         await connection.OpenAsync();
         await using var transaction = await connection.BeginTransactionAsync();
         await using (var lockCommand = new NpgsqlCommand("SELECT 1 FROM sessions WHERE \"Id\" = @id FOR UPDATE", connection, transaction))

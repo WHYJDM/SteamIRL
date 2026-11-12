@@ -12,7 +12,7 @@
 - ASP.NET Core Identity, хеширование паролей, HttpOnly cookie, CSRF-токены для изменяющих запросов, блокировка после пяти неверных паролей на пять минут и лимит 20 запросов регистрации/входа в минуту на адрес, видимый API.
 - React + TypeScript + Vite: каталог с выбором активности, состояния загрузки, ошибки и пустого ответа, адаптивная страница.
 - Docker Compose с постоянным томом базы, отдельным применением миграций и общим origin для интерфейса и API через nginx.
-- Интеграционные тесты на PostgreSQL и CI для сборок, тестов и проверки контейнерного запуска.
+- Интеграционные тесты на PostgreSQL и GitHub Actions CI для сборок, тестов и проверки контейнерного запуска. Deployment на сервер не настроен.
 
 После выбора спорта открывается `/#/activities/{slug}` со списком и картой. Страница `/#/locations/{id}` показывает карточку места и его игры. Поиск игр: `/#/sessions`, создание с выбранной площадки: `/#/sessions/new?location={id}&activity={slug}`, карточка: `/#/sessions/{id}`, личная история: `/#/my-games`.
 
@@ -80,18 +80,17 @@ HTTP и локальная публикация портов предназна�
 
 ## Проверки
 
-Создать **отдельную пустую** базу с именем `steamirl_test` или с таким префиксом. Тесты применяют миграции, сохраняют каталог между запусками и проверяют ограничения на изолированных неуспешных вставках. Не использовать рабочую базу.
+Указать административное подключение PostgreSQL, в котором имя базы начинается с `steamirl_test`. Каждый общий `ApiFactory` создаёт собственную случайно именованную базу `steamirl_test_api_*`, применяет миграции и удаляет только эту базу после своего класса. Fixtures модерации и проверки ролей также используют отдельные базы. Рабочие `steamirl` и `steamirl_demo` не используются и не очищаются.
 
 Например, при запущенной Compose-базе:
 
 ```powershell
-docker compose exec postgres createdb -U steamirl steamirl_test
 $env:STEAMIRL_TEST_DATABASE = 'Host=localhost;Port=55432;Database=steamirl_test;Username=steamirl;Password=YOUR_LOCAL_PASSWORD'
 dotnet test SteamIRL.sln
 npm --prefix src/SteamIRL.Web run build
 ```
 
-`createdb` выполняется один раз. Тесты намеренно завершаются ошибкой без `STEAMIRL_TEST_DATABASE`, чтобы отсутствие PostgreSQL не выглядело как успешная проверка интеграции.
+Подключение должно иметь право создавать и удалять только тестовые базы. База из `Database=steamirl_test` может уже существовать или отсутствовать: она служит безопасным префиксом и источником административных параметров, а тестовые классы работают в собственных базах. Тесты намеренно завершаются ошибкой без `STEAMIRL_TEST_DATABASE`, чтобы отсутствие PostgreSQL не выглядело как успешная проверка интеграции.
 
 Проверяются каталог, миграции, ограничения, health endpoints, безопасный отказ базы, аккаунты/CSRF/приватность, игры и конкуренция, предложения и модерация, реальные права runtime/reader, маскирование, триггеры аудита и повторяемость demo-seed. Сейчас 111 интеграционных тестов и 7 frontend-тестов. Запуск frontend-тестов: `node --test tests/SteamIRL.Web.Tests/map-math.test.mjs tests/SteamIRL.Web.Tests/session-time.test.mjs`. Отчёты: [аккаунты](accounts-verification.md), [площадки](locations-verification.md), [игры](sessions-verification.md), [модерация](moderation-verification.md), [подготовка БД](database-assessment-verification.md).
 
@@ -155,7 +154,7 @@ powershell -NoProfile -File scripts/Seed-LocalDemo.ps1 -SecretsPath .local/demo.
 
 Для генерации словаря и ER-связей установить стандартные переменные подключения psql (`PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`; пароль только в локальном окружении), затем выполнить `powershell -NoProfile -File scripts/Export-DatabaseDocumentation.ps1 -Psql psql`. После генерации проверить diff: этот скрипт читает только системный каталог и не выгружает записи пользователей. Матрица требований и 3НФ дополняются вручную при изменении модели.
 
-Перед локальным коммитом: `powershell -NoProfile -File scripts/Check-Repository.ps1`. Публикация и доступ эксперта пока отложены по указанию владельца.
+Перед локальным коммитом: `powershell -NoProfile -File scripts/Check-Repository.ps1`. Репозиторий уже опубликован; перед каждым push дополнительно просматривать staged diff и историю на секреты и персональные данные. Текущий workflow является CI для сборки/тестов/контейнеров, но не CI/CD: deployment на сервер отсутствует.
 
 ## Технические основания
 
