@@ -4,30 +4,30 @@
 
 ```mermaid
 erDiagram
-    AspNetRoles ||..o{ AspNetRoleClaims : содержит утверждения
-    AspNetUsers ||..o{ AspNetUserClaims : содержит утверждения
-    AspNetUsers ||..o{ AspNetUserLogins : использует внешние входы
-    AspNetRoles ||--o{ AspNetUserRoles : назначается пользователям
-    AspNetUsers ||--o{ AspNetUserRoles : получает роли
-    AspNetUsers ||--o{ AspNetUserTokens : хранит токены
-    AspNetUsers ||..o{ content_reports : подает жалобы
-    locations |o..o{ content_reports : получает жалобы
-    sessions |o..o{ content_reports : получает жалобы
-    AspNetUsers ||..o{ idempotency_requests : отправляет команды
-    activities ||--o{ location_activities : доступна на площадках
-    locations ||--o{ location_activities : поддерживает активности
-    AspNetUsers ||..o{ location_submissions : предлагает изменения
-    locations ||..o{ location_submissions : имеет предложения
-    AspNetUsers ||..o{ moderation_decisions : принимает решения
-    content_reports |o..o| moderation_decisions : имеет решение
-    location_submissions |o..o| moderation_decisions : имеет решение
-    AspNetUsers ||--o{ participations : участвует в играх
-    sessions ||--o{ participations : содержит участников
-    AspNetUsers ||--o| public_profiles : имеет публичный профиль
-    AspNetUsers ||..o{ sessions : организует игры
-    location_activities ||..o{ sessions : разрешает игры
-    activities ||--o{ submission_activities : включена в предложения
-    location_submissions ||--o{ submission_activities : содержит активности
+    AspNetRoles ||..o{ AspNetRoleClaims : "содержит утверждения"
+    AspNetUsers ||..o{ AspNetUserClaims : "содержит утверждения"
+    AspNetUsers ||..o{ AspNetUserLogins : "использует внешние входы"
+    AspNetRoles ||--o{ AspNetUserRoles : "назначается пользователям"
+    AspNetUsers ||--o{ AspNetUserRoles : "получает роли"
+    AspNetUsers ||--o{ AspNetUserTokens : "хранит токены"
+    AspNetUsers ||..o{ content_reports : "подает жалобы"
+    locations |o..o{ content_reports : "получает жалобы"
+    sessions |o..o{ content_reports : "получает жалобы"
+    AspNetUsers ||..o{ idempotency_requests : "отправляет команды"
+    activities ||--o{ location_activities : "доступна на площадках"
+    locations ||--o{ location_activities : "поддерживает активности"
+    AspNetUsers ||..o{ location_submissions : "предлагает изменения"
+    locations ||..o{ location_submissions : "имеет предложения"
+    AspNetUsers ||..o{ moderation_decisions : "принимает решения"
+    content_reports |o..o| moderation_decisions : "имеет решение"
+    location_submissions |o..o| moderation_decisions : "имеет решение"
+    AspNetUsers ||--o{ participations : "участвует в играх"
+    sessions ||--o{ participations : "содержит участников"
+    AspNetUsers ||--o| public_profiles : "имеет публичный профиль"
+    AspNetUsers ||..o{ sessions : "организует игры"
+    location_activities ||..o{ sessions : "разрешает игры"
+    activities ||--o{ submission_activities : "включена в предложения"
+    location_submissions ||--o{ submission_activities : "содержит активности"
 
     AspNetRoles {
         uuid Id PK
