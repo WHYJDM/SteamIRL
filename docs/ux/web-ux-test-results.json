@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-13",
+  "checks": [
+    "return after login without automatic action",
+    "inline time validation, association and focus",
+    "required-field legend and 44px navigation targets",
+    "early place-card creation CTA at 390px",
+    "recovery actions are adjacent to session command error"
+  ],
+  "passed": 5,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "data": "Synthetic labelled API responses; no production accounts or records.",
+  "limitations": "Automated browser verification; no human usability outcomes, screen-reader session or full WCAG audit."
+}

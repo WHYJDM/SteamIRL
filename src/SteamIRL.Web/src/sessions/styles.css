@@ -3,6 +3,8 @@
 .sessions-page h1, .session-detail-page h1, .game-form-page h1 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -1.3px; overflow-wrap: anywhere; }
 .game-form-page { max-width: 640px; margin: auto; }
 .game-form-page form { background: #fffef9; border: 1px solid #d8dfd1; border-radius: 12px; padding: 26px; }
+.required-legend { color: #536358; font-size: 12px; margin: 0 0 22px; }
+.required-legend span, .form-field label span { color: #853122; }
 .form-field select { font: inherit; font-size: 14px; padding: 12px; color: #172e24; border: 1px solid #9da997; border-radius: 7px; background: white; width: 100%; min-width: 0; }
 .game-time-fields { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px; }
 .capacity-stepper { display: flex; gap: 10px; }
@@ -34,6 +36,9 @@
 .game-actions h2 { font-size: 22px; margin-bottom: 20px; }
 .game-actions p { font-size: 13px; line-height: 1.8; }
 .game-actions .logout-button { margin-top: 18px; }
+.action-error p { margin-top: 0; }
+.recovery-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.recovery-actions a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; font-weight: 600; }
 .game-confirm .text-button { display: block; margin-top: 14px; }
 .location-games { margin-top: 45px; border-top: 1px solid #d8dfd1; padding-top: 28px; }
 .location-games-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; }

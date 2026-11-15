@@ -48,7 +48,7 @@ function SessionActions({ game, closed, refreshing, refresh }: { game: GameSessi
   if (user === undefined) return <aside className="game-actions"><p role="status">Проверяем вход…</p></aside>
   if (!user && closed) return <aside className="game-actions"><h2>Игра закрыта</h2><p>Эта игра завершена или отменена. Выбери другое приглашение.</p><a className="primary-link" href="#/sessions">Найти другую игру</a></aside>
   if (!user && !game.isJoinable) return <aside className="game-actions"><h2>Набор сейчас недоступен</h2><p>Проверь другие игры со свободными местами.</p><a className="primary-link" href="#/sessions">Найти другую игру</a></aside>
-  if (!user) return <aside className="game-actions"><h2>Хочешь присоединиться?</h2><p>Войди, чтобы занять одно дополнительное место.</p><a className="primary-link" href="#/login">Войти</a></aside>
+  if (!user) return <aside className="game-actions"><h2>Хочешь присоединиться?</h2><p>Войди, чтобы занять одно дополнительное место.</p><a className="primary-link" href={`#/login?returnTo=${encodeURIComponent(`/sessions/${game.id}`)}`}>Войти и вернуться к игре</a></aside>
   return <aside className="game-actions" aria-busy={busy}><h2>{game.isOrganiser ? 'Управление игрой' : 'Участие в игре'}</h2>
     {game.isOrganiser ? <>
       {!closed && <form onSubmit={changeCapacity}><fieldset disabled={busy || refreshing}><div className="form-field"><label htmlFor="edit-capacity">Дополнительных мест всего</label><input id="edit-capacity" type="number" min={Math.max(1, game.participantCount)} max={30} step={1} required value={capacity} onChange={event => setCapacity(event.target.value)} /><span className="field-hint">Не меньше числа записавшихся игроков. Сейчас: {game.capacity}.</span></div><button className="submit-button" type="submit">Сохранить количество мест</button></fieldset></form>}
@@ -58,7 +58,7 @@ function SessionActions({ game, closed, refreshing, refresh }: { game: GameSessi
       : !closed && game.isJoinable ? confirmJoin ? <div className="game-confirm"><p>Занять одно место в этой игре?</p><button className="submit-button" disabled={busy || refreshing} onClick={() => void action('join')}>Подтвердить участие</button><button className="text-button" disabled={busy} onClick={() => setConfirmJoin(false)}>Пока не записываться</button></div>
         : <button className="submit-button" disabled={busy || refreshing} onClick={() => setConfirmJoin(true)}>Присоединиться</button>
         : <p>{closed ? 'Игра завершена или отменена.' : game.status === 'Full' ? 'Все места уже заняты.' : 'Набор сейчас недоступен.'}</p>}
-    {busy && <p role="status">Сохраняем…</p>}{error && <p role="alert" className="form-error">{error.message}</p>}{success && <p role="status" className="form-success">{success}</p>}
+    {busy && <p role="status">Сохраняем…</p>}{error && <div role="alert" className="form-error action-error"><p>{error.message}</p><div className="recovery-actions"><button className="retry" type="button" onClick={refresh}>Обновить игру</button><a href="#/sessions">Найти другую игру</a></div></div>}{success && <p role="status" className="form-success">{success}</p>}
     <a className="public-profile-link" href="#/my-games">Мои игры ↗</a>
   </aside>
 }

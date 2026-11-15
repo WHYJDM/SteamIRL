@@ -22,17 +22,21 @@ export function AccountNavigation() {
 
 export function AccountPage({ route }: { route: string }) {
   const { user, error, retry } = useAuth()
+  const [path, query = ''] = route.split('?')
+  const requestedReturn = new URLSearchParams(query).get('returnTo')
+  const returnTo = requestedReturn?.startsWith('/') && !requestedReturn.startsWith('//') && !requestedReturn.startsWith('/login') && !requestedReturn.startsWith('/register')
+    ? requestedReturn : '/me'
   if (route.startsWith('/profiles/')) return <PublicProfilePage id={route.slice('/profiles/'.length)} />
   if (error) return <section className="account-panel"><h1>Аккаунт недоступен</h1><p role="alert">{error}</p><button className="retry" onClick={retry}>Повторить</button></section>
   if (user === undefined) return <p className="notice" role="status">Проверяем вход…</p>
   if (route === '/me') return user ? <MyProfile /> : <section className="account-panel"><h1>Войди в аккаунт</h1><p>Чтобы открыть свой профиль, нужно войти.</p><a className="primary-link" href="#/login">Войти</a></section>
-  if (route === '/login' || route === '/register') return user
-    ? <section className="account-panel"><h1>Ты уже в аккаунте</h1><a className="primary-link" href="#/me">Открыть профиль</a></section>
-    : <AuthForm key={route} mode={route === '/register' ? 'register' : 'login'} />
+  if (path === '/login' || path === '/register') return user
+    ? <section className="account-panel"><h1>Ты уже в аккаунте</h1><a className="primary-link" href={`#${returnTo}`}>{returnTo === '/me' ? 'Открыть профиль' : 'Вернуться к действию'}</a></section>
+    : <AuthForm key={route} mode={path === '/register' ? 'register' : 'login'} returnTo={returnTo} />
   return <section className="account-panel"><h1>Страница не найдена</h1><a href="#/">Вернуться к активностям</a></section>
 }
 
-function AuthForm({ mode }: { mode: 'login' | 'register' }) {
+function AuthForm({ mode, returnTo }: { mode: 'login' | 'register'; returnTo: string }) {
   const { setUser } = useAuth()
   const [email, setEmail] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -55,7 +59,7 @@ function AuthForm({ mode }: { mode: 'login' | 'register' }) {
     try {
       const user = signingUp ? await register({ email, password, displayName }) : await login({ email, password })
       setUser(user)
-      window.location.hash = '/me'
+      window.location.hash = returnTo
     } catch (error) { setFailure(error instanceof ApiError ? error : new ApiError('Не удалось выполнить действие.')) }
     finally { setBusy(false) }
   }
@@ -75,7 +79,7 @@ function AuthForm({ mode }: { mode: 'login' | 'register' }) {
         <button className="submit-button" type="submit">{busy ? 'Подожди…' : signingUp ? 'Зарегистрироваться' : 'Войти'}</button>
       </fieldset>
     </form>
-    <p className="form-switch">{signingUp ? 'Уже есть аккаунт?' : 'Первый раз здесь?'} <a href={signingUp ? '#/login' : '#/register'}>{signingUp ? 'Войти' : 'Создать аккаунт'}</a></p>
+    <p className="form-switch">{signingUp ? 'Уже есть аккаунт?' : 'Первый раз здесь?'} <a href={`${signingUp ? '#/login' : '#/register'}${returnTo === '/me' ? '' : `?returnTo=${encodeURIComponent(returnTo)}`}`}>{signingUp ? 'Войти' : 'Создать аккаунт'}</a></p>
   </section>
 }
 

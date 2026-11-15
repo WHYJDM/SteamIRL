@@ -23,5 +23,9 @@
 **/pgdata/
 **/auth-keys/
 *.bundle
-SteamIRL-UX.zip
+
+# Local project instructions and private academic source documents.
+/AGENTS.md
+/43I-00_Diploma_Application_Nikitsenkau_Aliaksei 1 (1).docx
+/BA_Nikitsenkau_Aliaksei 2.docx
 

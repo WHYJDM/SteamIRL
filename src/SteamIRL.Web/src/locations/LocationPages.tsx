@@ -84,9 +84,9 @@ export function LocationDetails({ route }: { route: string }) {
   const back = activity && /^[a-z-]+$/.test(activity) ? `#/activities/${activity}` : '#/'
   return <section className="location-detail-page"><a className="back-link" href={back}>← К площадкам</a>
     {error ? <div className="notice error" role="alert"><h1>Площадка недоступна</h1><p>{error}</p><button className="retry" onClick={() => setAttempt(value => value + 1)}>Повторить загрузку карточки</button></div>
-      : location ? <><p className="eyebrow">Спортивная площадка · Вильнюс</p><h1>{location.name}</h1><div className="location-detail-layout"><article><DetailsContent location={location} /></article><LocationMap key={location.id} locations={[location]} selected={location} /></div>
+      : location ? <><p className="eyebrow">Спортивная площадка · Вильнюс</p><h1>{location.name}</h1><a className="primary-link location-primary-action" href={`#/sessions/new?location=${location.id}${activity ? `&activity=${encodeURIComponent(activity)}` : ''}`}>Создать игру на этой площадке</a><div className="location-detail-layout"><article><DetailsContent location={location} /></article><LocationMap key={location.id} locations={[location]} selected={location} /></div>
         <div className="review-links"><a href={`#/location-corrections/${location.id}`}>Предложить исправление</a><a href={`#/reports/new?location=${location.id}`}>Пожаловаться на площадку</a></div>
-        <section className="location-games" aria-labelledby="location-games-title"><div className="location-games-heading"><h2 id="location-games-title">Игры на этой площадке</h2><a className="primary-link" href={`#/sessions/new?location=${location.id}${activity ? `&activity=${encodeURIComponent(activity)}` : ''}`}>Создать игру</a></div>
+        <section className="location-games" aria-labelledby="location-games-title"><div className="location-games-heading"><h2 id="location-games-title">Игры на этой площадке</h2></div>
           <GamesList key={location.id} locationId={location.id} activities={location.activities} defaultActivityId={location.activities.find(item => item.slug === activity)?.id} />
         </section></>
         : <p className="notice" role="status">Загружаем карточку…</p>}

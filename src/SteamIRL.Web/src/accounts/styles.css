@@ -1,9 +1,10 @@
 .header-right { display: flex; align-items: center; gap: 28px; }
-.account-nav { display: flex; align-items: center; gap: 18px; font-size: 12px; font-weight: 600; }
+.account-nav { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; }
+.account-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px; }
 .account-link { background: #e6eddc; padding: 11px 15px; border-radius: 7px; }
 .account-nav a:hover, .form-switch a:hover, .public-profile-link:hover { text-decoration: underline; }
 .account-loading { font-size: 12px; color: #536358; }
-.text-button { font-size: 12px; cursor: pointer; background: none; border: 0; text-decoration: underline; color: #193e2c; }
+.text-button { font-size: 12px; cursor: pointer; background: none; border: 0; text-decoration: underline; color: #193e2c; min-height: 44px; padding: 8px; }
 .account-panel { max-width: 490px; margin: 54px auto 72px; padding: 34px; border: 1px solid #d8dfd1; background: #fffef9; border-radius: 16px; overflow-wrap: anywhere; }
 .account-panel h1 { font-size: 34px; letter-spacing: -1.1px; line-height: 1.25; margin-bottom: 16px; }
 .account-panel .eyebrow { margin-top: 28px; }

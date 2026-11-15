@@ -1,6 +1,7 @@
 .locations-page, .location-detail-page { padding: 40px 0 65px; }
 .locations-page > .eyebrow, .location-detail-page > .eyebrow { margin-top: 32px; }
 .locations-page h1, .location-detail-page h1 { font-size: clamp(30px, 4vw, 46px); letter-spacing: -1.5px; overflow-wrap: anywhere; }
+.location-primary-action { margin: 0 0 28px; }
 .locations-intro { color: #536358; font-size: 14px; line-height: 1.8; max-width: 680px; }
 .locations-layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.5fr); gap: 28px; margin-top: 35px; align-items: start; }
 .locations-layout h2 { font-size: 20px; letter-spacing: -.5px; margin-bottom: 20px; }
